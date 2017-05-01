@@ -49,7 +49,19 @@ let config={
 	plugins:[
 	//initialize our plugin ctor and pass the CSS filename as arg
 	new ExtractTextWebpackPlugin('styles.css')
-	]
+	],
+	devServer:{
+		//a file or URL to serve HTML content from
+		contentBase:path.resolve(__dirname,'./public'),
+		//fallback to index.html for single page applications
+		historyApiFallback:true,
+		//inline mode
+		inline:true,
+		//our default browser while launching
+		open:true
+	},
+	//enable devtool for better debuging
+	devtool:'eval-source-map'
 
 }
 
