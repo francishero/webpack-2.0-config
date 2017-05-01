@@ -4,6 +4,11 @@ const webpack=require('webpack');
 //we use this because webpack needs an absolute path to work properly
 const path =require('path');
 
+//require the plugin and save it as a constant
+const ExtractTextWebpackPlugin=require('extract-text-webpack-plugin');
+
+
+
 
 //we write code
 //webpack reads it, compiles it and spits a compiled version for the browser
@@ -34,10 +39,17 @@ let config={
 			//require it the index.js
 			{
 				test:/\.scss$/, //files ending in .scss
-				loader:["style-loader","css-loader","sass-loader"]
+				use:ExtractTextWebpackPlugin.extract({
+					use:['css-loader','sass-loader'],
+					fallback:'style-loader'
+				})
 			}
 		]
-	}
+	},
+	plugins:[
+	//initialize our plugin ctor and pass the CSS filename as arg
+	new ExtractTextWebpackPlugin('styles.css')
+	]
 
 }
 
